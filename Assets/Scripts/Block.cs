@@ -4,20 +4,13 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
+    { 
+        DestroyBlock();
+    }
+
+    private void DestroyBlock()
     {
-        Debug.Log(collision.gameObject.name + " hit by " + gameObject.name);
+        Destroy(gameObject);
     }
 }
