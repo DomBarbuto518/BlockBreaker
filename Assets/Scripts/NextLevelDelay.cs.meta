@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 56924558b219a1f4abcec09f2d3e6c50
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - backgroundMusic: {fileID: 8300000, guid: 80e62734a55d335428c36e3bae918108, type: 3}
+  - gameOverClip: {fileID: 8300000, guid: b63fe72ea76b5624ea09cd6a24d667ca, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

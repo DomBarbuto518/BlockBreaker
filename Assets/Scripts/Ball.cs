@@ -5,6 +5,8 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
 
+    NextLevelDelay nextLevelDelay;
+
     [SerializeField] Vector2 ballPos;
     [SerializeField] float xPush = 2f;
     [SerializeField] float yPush = 15f;
@@ -17,9 +19,9 @@ public class Ball : MonoBehaviour
     AudioSource myAudioSource;
     [SerializeField] AudioClip paddleHitClip;
     [SerializeField] [Range(0, 1)] float paddleHitVolume = 1f;
-    [SerializeField] AudioClip blockHitClip;
-    [SerializeField] [Range(0, 1)] float blockHitVolume = 1f;
-    [SerializeField] AudioClip floorHitClip;
+    [SerializeField] AudioClip blockDestroyClip;
+    [SerializeField] [Range(0, 1)] float blockDestroyVolume = 1f;
+    [SerializeField] public AudioClip gameOverClip;
     [SerializeField] [Range(0, 1)] float floorHitVolume = 1f;
     [SerializeField] AudioClip wallHitClip;
     [SerializeField] [Range(0, 1)] float wallHitVolume = 1f;
@@ -33,6 +35,8 @@ public class Ball : MonoBehaviour
         paddleToBallVector = transform.position - paddle.transform.position;
 
         myAudioSource = GetComponent<AudioSource>();
+
+        nextLevelDelay = FindObjectOfType<NextLevelDelay>();
     }
 
     // Update is called once per frame
@@ -69,10 +73,10 @@ public class Ball : MonoBehaviour
             myAudioSource.PlayOneShot(paddleHitClip);
         }
 
-        if (collision.gameObject.tag == "Block")
+        if (collision.gameObject.tag == "Breakable")
         {
-            Debug.Log("block hit sound");
-            myAudioSource.PlayOneShot(blockHitClip);
+            Debug.Log("block destroy sound");
+            myAudioSource.PlayOneShot(blockDestroyClip);
         }
 
         if (collision.gameObject.tag == "Wall")
@@ -86,11 +90,7 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.tag == "Floor")
         {
-            Debug.Log("floor hit sound");
-            myAudioSource.PlayOneShot(floorHitClip);
-
-            SceneLoader sceneloader = FindObjectOfType<SceneLoader>();
-            sceneloader.LoadGameOver();
+            nextLevelDelay.TriggerGameOverSequence();
         }
     }
 
